@@ -1,0 +1,74 @@
+﻿<Window x:Class="OmegleSpyWPF.WindowMain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Omegle Spy" MinHeight="480" MinWidth="640" Height="600" Width="800" Background="LightGray">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Chat Grid-->
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TxtbxChat" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="3" IsReadOnly="True" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Send Message as:" ToolTip="Only the recepient can see the Message" Margin="3" VerticalAlignment="Center"/>
+            <ComboBox x:Name="CmbbxInterveneAs" Grid.Row="1" Grid.Column="1" SelectedIndex="0" Margin="3">
+                <ComboBoxItem Content="Stranger 1"/>
+                <ComboBoxItem Content="Stranger 2"/>
+            </ComboBox>
+            <TextBox x:Name="TxtbxInterveneText" Grid.Row="1" Grid.Column="2" Margin="3" ToolTip="Text to send" KeyDown="TxtbxInterveneText_KeyDown"/>
+            <Button x:Name="BtnSendMessage" Grid.Row="1" Grid.Column="3" Margin="3" Content="Send" ToolTip="Alternativly press enter while typing" Click="BtnSendMessage_Click" />
+            <Button x:Name="BtnSaveLog" Grid.Row="1" Grid.Column="4" Margin="3" Content="Save Log" ToolTip="Saves the current Chat" Click="BtnSaveLog_Click" />
+            <Button x:Name="BtnReconnect" Grid.Row="1" Grid.Column="5" Margin="3" Content="(Re)Connect" ToolTip="Connects two new Strangers" Click="BtnReconnect_Click" />
+        </Grid>
+
+        <!--Info/Options Grid-->
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Stranger Status-->
+            <TextBlock Text="Connected" Grid.Row="0" Grid.Column="1" Margin="3"/>
+            <TextBlock Text="Writing" Grid.Row="0" Grid.Column="2" Margin="3"/>
+            <TextBlock Text="Stranger 1" Grid.Row="1" Grid.Column="0" Margin="3"/>
+            <TextBlock Text="Stranger 2" Grid.Row="2" Grid.Column="0" Margin="3"/>
+            <CheckBox x:Name="ChkbxS1Connected" IsHitTestVisible="False" Grid.Row="1" Grid.Column="1" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <CheckBox x:Name="ChkbxS1Writing" IsHitTestVisible="False" Grid.Row="1" Grid.Column="2" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <CheckBox x:Name="ChkbxS2Connected" IsHitTestVisible="False" Grid.Row="2" Grid.Column="1" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <CheckBox x:Name="ChkbxS2Writing" IsHitTestVisible="False" Grid.Row="2" Grid.Column="2" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            
+            <!--Options-->
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Autosave" Margin="3"/>
+            <TextBox x:Name="TxtbxAutosaveMinLength" Grid.Row="4" Grid.Column="1" ToolTip="Log gets autosaved when the Chat is at least this long. '0' means it will always save." Margin="3" PreviewTextInput="TxtbxAutosaveMinLength_PreviewTextInput" Text="0"/>
+            <CheckBox x:Name="ChkbxActivateAutosave" Grid.Row="4" Grid.Column="2" ToolTip="Activates the Autosave" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Automatically Reconnect" Margin="3"/>
+            <CheckBox x:Name="ChkbxActivateAutoReconnect" Grid.Row="5" Grid.Column="2" ToolTip="Activates the automatic reconnect" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Window>
