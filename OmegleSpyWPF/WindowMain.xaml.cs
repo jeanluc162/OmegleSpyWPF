@@ -157,7 +157,7 @@ namespace OmegleSpyWPF
             if (ChkbxActivateAutosave.IsChecked == true)
             {
                 if (TxtbxAutosaveMinLength.Text.Length == 0) TxtbxAutosaveMinLength.Text = "0";
-                if (TxtbxInterveneText.Text.Split(new string[] { "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries).Length >= System.Convert.ToInt32(TxtbxAutosaveMinLength.Text) || System.Convert.ToInt32(TxtbxAutosaveMinLength.Text) == 0)
+                if (TxtbxChat.Text.Split(new string[] { "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries).Length >= System.Convert.ToInt32(TxtbxAutosaveMinLength.Text))
                 {
                     SaveLog();
                 }
@@ -176,7 +176,8 @@ namespace OmegleSpyWPF
 
         private void BtnReconnect_Click(object sender, RoutedEventArgs e)
         {
-            Connect();
+            Disconnect();
+            if(ChkbxActivateAutoReconnect.IsChecked == false) Connect();
         }
 
         private void BtnSaveLog_Click(object sender, RoutedEventArgs e)
@@ -206,6 +207,7 @@ namespace OmegleSpyWPF
             {
                 if (CmbbxInterveneAs.SelectedIndex == 0) SendMessage(TxtbxInterveneText.Text.Trim(), MessageIssuer.Stranger1, true);
                 else if (CmbbxInterveneAs.SelectedIndex == 1) SendMessage(TxtbxInterveneText.Text.Trim(), MessageIssuer.Stranger2, true);
+                TxtbxInterveneText.Text = "";
             }
         }
 
