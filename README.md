@@ -7,4 +7,4 @@ A little man-in-the-middle Spying tool for Omegle
 # Is this hacking?
 No. This program works by connecting to clients to omegle at the same time using [Omegle-.NET](https://github.com/jeanluc162/Omegle-.NET) and forwarding all messages the first client gets to the second client and the other way around.
 # Is this illegal?
-Frankly, I don't know. Please refrain from doing evil with it. An important note: From omegles perspective, all messages going through this program are being sent by you at point. Therefore, **you can get your IP banned because of a message written by one of the strangers**.
+Frankly, I don't know. Please refrain from doing evil with it. An important note: From omegles perspective, all messages going through this program are being sent by you at one point. Therefore, **you can get your IP banned because of a message written by one of the strangers**.
