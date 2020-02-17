@@ -4,6 +4,7 @@
 - Watch two strangers chatting without their knowledge
 - Send a message as one of them that will only be seen by the other
 - Save logs/configure an autosave for all chats that were longer than x messages
+- Activate spam protection to manually accept the forwarding of messages containing bad words. This should reduce the likelyhood of getting banned.
 # Is this hacking?
 No. This program works by connecting two clients to omegle at the same time using [Omegle-.NET](https://github.com/jeanluc162/Omegle-.NET) and forwarding all messages the first client receives to the second client and the other way around.
 # Is this illegal?

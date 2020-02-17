@@ -70,6 +70,27 @@ namespace OmegleSpyWPF
 
         void c_StrangerSentMessage(object sender, string Message)
         {
+            System.Boolean FoundBadWord = false;
+            this.Dispatcher.Invoke(new System.Action(() => {
+                if (ChkbxAskBeforeSpam.IsChecked == true)
+                {
+                    string[] badwords = TxtbxBadWords.Text.Split(new string[] { ";" }, System.StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string badword in badwords)
+                    {
+                        if (Message.Contains(badword))
+                        {
+                            FoundBadWord = true;
+                            break;
+                        }
+                    }
+                }
+            }));
+
+            if (FoundBadWord)
+            {
+                if (MessageBox.Show(Message, "Forward Message?", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            }
+
             if (sender == OmegleStrangers[0])
             {
                 if (Connected[1]) SendMessage(Message, MessageIssuer.Stranger1, false);
@@ -146,7 +167,7 @@ namespace OmegleSpyWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TxtbxAutosaveMinLength_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void NumericalPreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);

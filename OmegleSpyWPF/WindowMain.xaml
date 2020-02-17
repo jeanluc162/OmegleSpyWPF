@@ -5,7 +5,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -31,7 +31,7 @@
                 <ComboBoxItem Content="Stranger 1"/>
                 <ComboBoxItem Content="Stranger 2"/>
             </ComboBox>
-            <TextBox x:Name="TxtbxInterveneText" Grid.Row="1" Grid.Column="2" Margin="3" ToolTip="Text to send" KeyDown="TxtbxInterveneText_KeyDown"/>
+            <TextBox x:Name="TxtbxInterveneText" Grid.Row="1" Grid.Column="2" Margin="3" ToolTip="Text to send" KeyDown="TxtbxInterveneText_KeyDown" VerticalContentAlignment="Center"/>
             <Button x:Name="BtnSendMessage" Grid.Row="1" Grid.Column="3" Margin="3" Content="Send" ToolTip="Alternativly press enter while typing" Click="BtnSendMessage_Click" />
             <Button x:Name="BtnSaveLog" Grid.Row="1" Grid.Column="4" Margin="3" Content="Save Log" ToolTip="Saves the current Chat" Click="BtnSaveLog_Click" />
             <Button x:Name="BtnReconnect" Grid.Row="1" Grid.Column="5" Margin="3" Content="(Re)Connect" ToolTip="Connects two new Strangers" Click="BtnReconnect_Click" />
@@ -46,16 +46,20 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="75"/>
             </Grid.ColumnDefinitions>
             
             <!--Stranger Status-->
-            <TextBlock Text="Connected" Grid.Row="0" Grid.Column="1" Margin="3"/>
-            <TextBlock Text="Writing" Grid.Row="0" Grid.Column="2" Margin="3"/>
+            <TextBlock Text="Connected" Grid.Row="0" Grid.Column="1" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="Writing" Grid.Row="0" Grid.Column="2" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock Text="Stranger 1" Grid.Row="1" Grid.Column="0" Margin="3" TextDecorations="None" Foreground="Red" FontWeight="Bold"></TextBlock>
             <TextBlock Text="Stranger 2" Grid.Row="2" Grid.Column="0" Margin="3" FontWeight="Bold" Foreground="Blue" />
             <CheckBox x:Name="ChkbxS1Connected" IsHitTestVisible="False" Grid.Row="1" Grid.Column="1" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -63,12 +67,20 @@
             <CheckBox x:Name="ChkbxS2Connected" IsHitTestVisible="False" Grid.Row="2" Grid.Column="1" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <CheckBox x:Name="ChkbxS2Writing" IsHitTestVisible="False" Grid.Row="2" Grid.Column="2" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             
-            <!--Options-->
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Autosave Logs" Margin="3" VerticalAlignment="Center"/>
-            <TextBox x:Name="TxtbxAutosaveMinLength" Grid.Row="4" Grid.Column="1" ToolTip="Log gets autosaved when the Chat is at least this long. '0' means it will always save." Margin="3" PreviewTextInput="TxtbxAutosaveMinLength_PreviewTextInput" Text="0"/>
-            <CheckBox x:Name="ChkbxActivateAutosave" Grid.Row="4" Grid.Column="2" ToolTip="Activates the Autosave" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Automatically Reconnect" Margin="3" VerticalAlignment="Center"/>
-            <CheckBox x:Name="ChkbxActivateAutoReconnect" Grid.Row="5" Grid.Column="2" ToolTip="Activates the automatic reconnect" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!--Anti-Spam Options-->
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Antispam Options" FontWeight="Bold" VerticalAlignment="Center" Margin="3" ToolTip="Should reduce the likelyhood of ip bans"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Spam Words" VerticalAlignment="Center" Margin="3"/>
+            <TextBox x:Name="TxtbxBadWords" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" ToolTip="Words seperated by a ';' that should count as Spam" VerticalContentAlignment="Center" Text="snap;kik;bit.ly;horny;dirty;snapchat;jerk"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Ask before forwarding" VerticalAlignment="Center" Margin="3" ToolTip="If this Option is activated, you will be asked before a message containing a Spam Word is forwarded to the recipient"/>
+            <CheckBox x:Name="ChkbxAskBeforeSpam" Grid.Row="6" Grid.Column="2" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            
+            <!--Disconnect Options-->
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Disconnect Options" FontWeight="Bold" VerticalAlignment="Center" Margin="3" ToolTip="These options determine what the program does when the Connection is closed"/>
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Autosave Logs" Margin="3" VerticalAlignment="Center"/>
+            <TextBox x:Name="TxtbxAutosaveMinLength" Grid.Row="8" Grid.Column="1" ToolTip="Log gets autosaved when the Chat is at least this long. '0' means it will always save." Margin="3" PreviewTextInput="NumericalPreviewTextInput" Text="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <CheckBox x:Name="ChkbxActivateAutosave" Grid.Row="8" Grid.Column="2" ToolTip="Activates the Autosave" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="Automatically Reconnect" Margin="3" VerticalAlignment="Center"/>
+            <CheckBox x:Name="ChkbxActivateAutoReconnect" Grid.Row="9" Grid.Column="2" ToolTip="Activates the automatic reconnect" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>
