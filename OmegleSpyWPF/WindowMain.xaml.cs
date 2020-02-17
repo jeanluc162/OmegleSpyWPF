@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using OmegleAPI;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace OmegleSpyWPF
 {
@@ -111,25 +112,33 @@ namespace OmegleSpyWPF
 
         private void SendMessage(System.String Message, MessageIssuer Issuer, System.Boolean IsIntervention)
         {
-            System.Boolean Success = false;
-            System.String ToScreen = "";
-            if (IsIntervention) ToScreen += "YOU as ";
-            if (Issuer == MessageIssuer.Stranger1)
-            {
-                Success = OmegleStrangers[1].SendMessage(Message);
-                ToScreen += "Stranger 1: ";
-            }
-            else if (Issuer == MessageIssuer.Stranger2)
-            {
-                Success = OmegleStrangers[0].SendMessage(Message);
-                ToScreen += "Stranger 2: ";
-            }
+            //Very unlikely that all of this has to run on the UI Thread, but it works for now
+            this.Dispatcher.Invoke(new System.Action(() => {
+                System.Boolean Success = false;
+                System.Windows.Documents.Run ToScreen = new System.Windows.Documents.Run();
+                if (IsIntervention) ToScreen.Text += "YOU as ";
+                if (Issuer == MessageIssuer.Stranger1)
+                {
+                    Success = OmegleStrangers[1].SendMessage(Message);
+                    ToScreen.Text += "Stranger 1: ";
+                    if (IsIntervention) ToScreen.Foreground = new SolidColorBrush(Colors.Orange);
+                    else ToScreen.Foreground = new SolidColorBrush(Colors.Red);
+                }
+                else if (Issuer == MessageIssuer.Stranger2)
+                {
+                    Success = OmegleStrangers[0].SendMessage(Message);
+                    ToScreen.Text += "Stranger 2: ";
+                    if (IsIntervention) ToScreen.Foreground = new SolidColorBrush(Colors.Purple);
+                    else ToScreen.Foreground = new SolidColorBrush(Colors.Blue);
+                }
 
-            if (Success)
-            {
-                ToScreen += Message + "\r\n";
-                this.Dispatcher.Invoke(new System.Action(() => { TxtbxChat.AppendText(ToScreen);}));
-            }
+                if (Success)
+                {
+                    ToScreen.Text += Message;
+                    System.Windows.Documents.Paragraph p = new System.Windows.Documents.Paragraph(ToScreen);
+                    TxtbxChat.Document.Blocks.Add(p);
+                }
+            }));
         }
 
         /// <summary>
@@ -157,7 +166,7 @@ namespace OmegleSpyWPF
             if (ChkbxActivateAutosave.IsChecked == true)
             {
                 if (TxtbxAutosaveMinLength.Text.Length == 0) TxtbxAutosaveMinLength.Text = "0";
-                if (TxtbxChat.Text.Split(new string[] { "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries).Length >= System.Convert.ToInt32(TxtbxAutosaveMinLength.Text))
+                if (TxtbxChat.Document.Blocks.Count >= System.Convert.ToInt32(TxtbxAutosaveMinLength.Text))
                 {
                     SaveLog();
                 }
@@ -171,7 +180,7 @@ namespace OmegleSpyWPF
         private void Connect()
         {           
             foreach (Client c in OmegleStrangers) c.ConnectChat(null, false);
-            TxtbxChat.Text = "";
+            TxtbxChat.Document.Blocks.Clear(); ;
         }
 
         private void BtnReconnect_Click(object sender, RoutedEventArgs e)
@@ -216,7 +225,13 @@ namespace OmegleSpyWPF
         /// </summary>
         private void SaveLog()
         {
-            System.IO.File.WriteAllText(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.fff") + ".log"), TxtbxChat.Text);
+            TxtbxChat.SelectAll();
+            TxtbxChat.Selection.Save(new System.IO.FileStream(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.fff") + ".rtf"), System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write), DataFormats.Rtf);
+        }
+
+        private void TxtbxChat_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            TxtbxChat.ScrollToEnd();
         }
     }
 }
