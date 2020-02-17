@@ -9,4 +9,4 @@ No. This program works by connecting two clients to omegle at the same time usin
 # Is this illegal?
 Frankly, I don't know. Please refrain from doing evil with it. An important note: From omegles perspective, all messages going through this program are being sent by you at one point. Therefore, **you can get your IP banned because of a message written by one of the strangers**.
 # Where does this Software run?
-Windows XP with .NET 3.5 and up. You might get a warning on Windows 10 because I haven't signed the executeable. If you want to compile it yourself: I used Visual Studio 2008, but newer versions should work just as fine.
+Windows XP with .NET 3.5 and up. You might get a warning on Windows 10 because I haven't signed the executeable. If you want to compile it yourself: I used Visual Studio 2008, but newer versions should work just fine.
