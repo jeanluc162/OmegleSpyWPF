@@ -1,5 +1,5 @@
 # OmegleSpyWPF
-A little man-in-the-middle Spying tool for Omegle
+![A little man-in-the-middle Spying tool for Omegle](https://github.com/jeanluc162/OmegleSpyWPF/raw/master/OmegleSpyWPF.png)
 # What can you do with it?
 - Watch two strangers chatting without their knowledge
 - Send a message as one of them that will only be seen by the other
